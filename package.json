@@ -1,0 +1,23 @@
+{
+  "name": "outsidecli",
+  "version": "1.0.0",
+  "description": "real-world Node CLI app with Node",
+  "keywords": [
+    "CLI"
+  ],
+  "homepage": "https://github.com/Vasishth-05/outside-cli#readme",
+  "bugs": {
+    "url": "https://github.com/Vasishth-05/outside-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vasishth-05/outside-cli.git"
+  },
+  "license": "MIT",
+  "author": "Vasishth@29",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "index.js"
+  }
+}
