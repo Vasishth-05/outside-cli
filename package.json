@@ -17,7 +17,13 @@
   "author": "Vasishth@29",
   "type": "commonjs",
   "main": "index.js",
+  "bin": {
+    "outside" : "bin/outside"
+  },
   "scripts": {
-    "dev": "index.js"
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
