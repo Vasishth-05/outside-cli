@@ -2,6 +2,7 @@
 
 import dgram from "dgram"
 import { parse as urlParse } from "url";
+import crypto from "crypto";
 
 const getPeers = (torrent,callback) => {
     const socket = dgram.createSocket("udp4");
@@ -25,5 +26,30 @@ function udpSend(socket,message,rawUrl, callback=()=>{}){
     const url = urlParse(rawUrl);
     socket.send(message,0,message.length,url.port,url.host,callback);
 }
+
+function buildConnReq(){
+    const buf = Buffer.alloc(16);
+
+    buf.writeUInt32BE(0x234,0);
+    buf.writeUInt32BE(0x12345123,4);
+
+    buf.writeUInt32BE(0,8);
+
+    crypto.randomBytes(4).copy(buf,12);
+
+    return buf;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default getPeers;
