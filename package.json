@@ -21,7 +21,8 @@
     "outside": "bin/outside"
   },
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "nodemon tracker.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
