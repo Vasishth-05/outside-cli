@@ -20,6 +20,9 @@ const getPeers = (torrent,callback) => {
             callback(announceResp.peers);
         }
     });
+
+    const announceReq = buildAnnounceReq(connectionReq.connectionId,torrent);
+
 }
 
 function udpSend(socket,message,rawUrl, callback=()=>{}){
@@ -40,6 +43,45 @@ function buildConnReq(){
     return buf;
 }
 
+function parseConnResp(resp){
+    return {
+        action : resp.writeUInt32BE(0),
+        transactionId : resp.writeUInt32BE(4),
+        connectionId : resp.slice(8)
+    }
+}
+
+function buildAnnounceReq(){
+    const buf = Buffer.allocUnsafe(98); //allocate 98 bytes to buf using buffer but might contain lefterover that's why unsafe
+
+    connId.copy(buf,0); // copy connId to buf at 0th offset
+
+    buf.writeInt16BE(1,8);// add 1 in 8th offset in buf
+
+    crypto.randomBytes(4).copy(buf,12); //copy 4 random bytes in buf at 12 offset or index
+
+    torrentParser.infoHash(torrent).copy(buf,16);
+
+    util.genId().copy(buf,36); //generate a peerId from util and copy it into buf at 16th offset
+
+    Buffer.alloc(8).copy(buf,56)
+
+    torrentParser.size(torrent).copy(buf,64)
+
+    Buffer.alloc(8).copy(buf,56)
+
+    buf.writeInt32BE(0,80)
+
+    buf.writeInt32BE(0,80)
+
+    crypto.randomBytes(4).copy(buf,88)
+
+    buf.writeInt32BE(-1,92)
+
+    buf.writeUInt16BE(port,96);
+
+    return buf
+}
 
 
 
